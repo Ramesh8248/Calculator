@@ -1,22 +1,27 @@
-const display = document.getElementById("display");
+let input = document.getElementById('inputBox');
+let buttons = document.querySelectorAll('button');
 
-function getToDisplay(input){
-    display.value += input;
-}
+let string = "";
+let arr = Array.from(buttons);
+arr.forEach(button => {
+    button.addEventListener('click', (e) =>{
+        if(e.target.innerHTML == '='){
+            string = eval(string);
+            input.value = string;
+        }
 
-function calc(){
-    try{
-        display.value = eval(display.value);
-    }
-    catch(error){
-        display.value = "Error";
-    }
-}
-
-function clearDis(){
-    display.value = "";
-}
-
-function deleteLast(){
-    display.value =display.value.slice(0,-1);
-}
+        else if(e.target.innerHTML == 'AC'){
+            string = "";
+            input.value = string;
+        }
+        else if(e.target.innerHTML == 'DEL'){
+            string = string.substring(0, string.length-1);
+            input.value = string;
+        }
+        else{
+            string += e.target.innerHTML;
+            input.value = string;
+        }
+        
+    })
+})
